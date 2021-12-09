@@ -8,15 +8,17 @@ from rest_framework.response import Response
 
 from .permissions import IsMangaCreator
 from .serializers import *
-from .models import Manga, Saved
+from .models import *
 
 
 class MangaFilter(django_filters.FilterSet):
-    author = django_filters.CharFilter(field_name='title')
+    title = django_filters.CharFilter(field_name='title')
+    category = django_filters.CharFilter(field_name='category')
 
     class Meta:
         model = Manga
-        fields = ['title', ]
+        fields = ['title', 'category', ]
+
 
 
 class MangaListView(generics.ListAPIView):
@@ -25,7 +27,7 @@ class MangaListView(generics.ListAPIView):
     pagination_class = PageNumberPagination
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, ]
     filter_class = MangaFilter
-    search_fields = ['title', ]
+    search_fields = ['title', 'category', ]
 
     def get_serializer_context(self):
         return {'request': self.request}
@@ -57,7 +59,7 @@ class MangaViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:
             permissions = []
-        elif self.action == 'saved':
+        elif self.action == 'saved' or self.action == 'like':
             permissions = [IsAuthenticated, ]
         else:
             permissions = [IsMangaCreator, ]
@@ -97,5 +99,17 @@ class SavedView(generics.ListAPIView):
 class MangaDetailView(generics.RetrieveAPIView):
     queryset = Manga.objects.all()
     serializer_class = MangaDetailSerializer
+
+class CategoryList(generics.ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class TagList(generics.ListAPIView):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+
+class GenreList(generics.ListAPIView):
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
 
 

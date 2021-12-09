@@ -36,9 +36,9 @@ INSTALLED_APPS = [
 
     # custom apps
     'applications.account',
-    'applications.category',
     'applications.manga',
     'applications.comment',
+    'applications.chapters',
 ]
 
 MIDDLEWARE = [

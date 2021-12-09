@@ -1,7 +1,24 @@
 from django.db import models
-
 from ..account.models import User
-# from ..category.models import Category
+
+class Category(models.Model):
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.title
+
+class Genre(models.Model):
+    title = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.title
+
+class Tag(models.Model):
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.title
+
 
 
 class Manga(models.Model):
@@ -13,7 +30,9 @@ class Manga(models.Model):
 
     title = models.CharField(max_length=100)
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='manga', blank=True)
-    # category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='manga')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='manga', null=True)
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name='manga', null=True)
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='manga', null=True)
     description = models.TextField()
     image = models.ImageField(upload_to='')
     author = models.CharField(max_length=50)

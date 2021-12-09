@@ -12,6 +12,9 @@ urlpatterns = [
     path('manga-update/<int:pk>/', MangaUpdateView.as_view()),
     path('manga-delete/<int:pk>/', MangaDeleteView.as_view()),
     path('saved-list/', SavedView.as_view()),
+    path('category-list/', CategoryList.as_view()),
+    path('tag-list/', TagList.as_view()),
+    path('genre-list/', GenreList.as_view()),
     path('', include(router.urls)),
 ]
 urlpatterns.extend(router.urls)

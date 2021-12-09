@@ -24,4 +24,5 @@ urlpatterns = [
     path('account/', include('applications.account.urls')),
     path('manga/', include('applications.manga.urls')),
     path('comment/', include('applications.comment.urls')),
+    path('chapters/', include('applications.chapters.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

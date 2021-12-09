@@ -1,7 +1,25 @@
 from rest_framework import serializers
-from .models import Manga, Saved, Like
+from .models import *
+from ..chapters.serializers import *
 from ..comment.serializers import CommentSerializer
 
+class CategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+class GenreSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Genre
+        fields = '__all__'
+
+class TagSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Tag
+        fields = '__all__'
 
 class SavedSerializer(serializers.ModelSerializer):
 
@@ -71,4 +89,8 @@ class MangaDetailSerializer(serializers.ModelSerializer):
         if len(total_rating) > 0:
             representation['total_rating'] = sum(total_rating) / len(total_rating)
         representation['comments'] = CommentSerializer(instance.comment.filter(manga=instance.id), many=True).data
+        representation['genre'] = f'{instance.genre}'
+        representation['tag'] = f'{instance.tag}'
+        representation['category'] = f'{instance.category}'
+        representation['chapter'] = ChapterNameSerializer(instance.chapter.filter(manga=instance.id), many=True).data
         return representation

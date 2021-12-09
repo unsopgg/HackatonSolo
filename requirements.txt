@@ -9,3 +9,4 @@ sqlparse
 django-decouple
 drf-yasg
 django-filter
+transliterate
