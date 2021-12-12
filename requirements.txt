@@ -10,3 +10,5 @@ django-decouple
 drf-yasg
 django-filter
 transliterate
+celery
+redis

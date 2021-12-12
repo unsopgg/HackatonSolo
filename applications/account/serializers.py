@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model, authenticate
 from django.core.mail import send_mail
 from rest_framework import serializers
-from .utils import send_activation_mail
+from .tasks import send_activation_mail
 from umanga_proj.settings import EMAIL_HOST_USER
 
 User = get_user_model()
@@ -56,10 +56,6 @@ class LoginSerializer(serializers.Serializer):
         attrs['user'] = user
         return attrs
 
-class ChangePasswordSerializer(serializers.Serializer):
-    old_password = serializers.CharField(min_length=6, required=True)
-    new_password = serializers.CharField(min_length=6, required=True)
-    new_password_confirmation = serializers.CharField(min_length=6, required=True)
 
     def validate_old_password(self, old_password):
         request = self.context.get('request')

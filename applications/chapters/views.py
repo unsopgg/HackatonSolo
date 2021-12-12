@@ -1,5 +1,7 @@
+from django.http import JsonResponse
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from .models import Chapter
 from .permissions import IsChapterUploader
@@ -13,6 +15,7 @@ class ChapterCreateView(generics.CreateAPIView):
     queryset = Chapter.objects.all()
     serializer_class = ChapterSerializer
     permission_classes = [IsAuthenticated, ]
+
 
 class ChapterUpdateView(generics.UpdateAPIView):
     queryset = Chapter.objects.all()

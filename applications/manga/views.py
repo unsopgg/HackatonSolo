@@ -29,6 +29,7 @@ class MangaListView(generics.ListAPIView):
     filter_class = MangaFilter
     search_fields = ['title', 'category', ]
 
+
     def get_serializer_context(self):
         return {'request': self.request}
 

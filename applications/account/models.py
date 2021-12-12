@@ -52,16 +52,7 @@ class User(AbstractUser):
         if self.activation_code != activation_code:
             raise Exception('Неверный код, проверь и попробуй снова')
         self.is_active = True
-        self.activation_code = ''
+        # self.activation_code = ''
         self.save()
 
-    def send_activation_email(self):
-        msg = f'''Спасибо за регистрацию,: 
-        вот ваш код активации:
-                http://localhost:8000/auth/account/activate/{self.activation_code}/'''
 
-        send_mail('Akkaunt aktivirovan', msg, EMAIL_HOST_USER, [self.email])
-
-    class Meta:
-        verbose_name = 'Account'
-        verbose_name_plural = 'Account'
