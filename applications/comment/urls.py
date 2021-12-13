@@ -8,6 +8,6 @@ router.register('', CommentViewSet, )
 # router.register('like', CommentLikeViewSet, )
 
 urlpatterns = [
-    path('comment', include(router.urls))
+    path('comment/', include(router.urls))
 ]
 urlpatterns.extend(router.urls)

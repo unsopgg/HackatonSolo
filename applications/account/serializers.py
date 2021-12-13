@@ -55,27 +55,7 @@ class LoginSerializer(serializers.Serializer):
 
         attrs['user'] = user
         return attrs
-
-
-    def validate_old_password(self, old_password):
-        request = self.context.get('request')
-        user = request.user
-        if not user.check_password(old_password):
-            raise serializers.ValidationError('Введен неправильный пароль')
-        return old_password
-
-    def validate(self, attrs):
-        new_pass1 = attrs.get('new_password')
-        new_pass2 = attrs.get('new_password_confirmation')
-        if new_pass1 != new_pass2:
-            raise serializers.ValidationError('Пароли не совпадают')
-        return attrs
-
-    def set_new_password(self):
-        new_pass = self.validated_data.get('new_password')
-        user = self.context.get('request').user
-        user.set_password(new_pass)
-        user.save()
+        print(attrs['user'])
 
 
 class ForgotPasswordSerializer(serializers.Serializer):

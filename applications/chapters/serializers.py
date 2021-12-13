@@ -6,7 +6,7 @@ class ChapterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Chapter
-        fields = ('title', 'manga', 'image', )
+        fields = ('title', 'manga', 'image', 'id', )
 
     def create(self, validated_data):
         request = self.context.get('request')

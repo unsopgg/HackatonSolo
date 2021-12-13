@@ -25,7 +25,12 @@ class SavedSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Saved
-        fields = '__all__'
+        fields = ('manga', )
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['manga'] = f'{instance.manga}'
+        return representation
 
 class LikeSerializer(serializers.ModelSerializer):
 
@@ -37,7 +42,7 @@ class LikeSerializer(serializers.ModelSerializer):
 class MangaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Manga
-        fields = '__all__'
+        fields = ('id', 'title', 'status', )
 
     def create(self, validated_data):
         request = self.context.get('request')

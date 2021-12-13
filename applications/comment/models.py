@@ -8,7 +8,7 @@ User = get_user_model()
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='comment')
-    manga = models.ForeignKey(Manga, on_delete=models.CASCADE, related_name='comment')
+    manga = models.ForeignKey(Manga, on_delete=models.CASCADE, related_name='comment', blank=True)
     comment = models.TextField()
     rating = models.IntegerField(default=5, validators=[MaxValueValidator(5), MinValueValidator(1)], blank=True, null=True)
 
